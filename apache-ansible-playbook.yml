@@ -1,0 +1,16 @@
+---
+# Diccionario
+- name: apache
+  hosts: all
+  remote_user: root
+  become: yes
+  # la lista de tareas a ejecutar
+  tasks:
+  # Los nombres
+  - name: instalar apache
+    # El nombre del módulo a utilizar
+    apt: name=apache2 state=present
+  # Nombre de la tarea
+  - name: Arrancar apache
+    service: name=apache2 state=started
+...
