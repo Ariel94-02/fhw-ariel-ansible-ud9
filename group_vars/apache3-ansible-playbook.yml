@@ -1,0 +1,29 @@
+---
+# Diccionario
+- name: apache
+  hosts: fhw
+  remote_user: root
+  become: yes
+  # la lista de tareas a ejecutar
+  tasks:
+  # Los nombres
+  - name: instalar apache
+    # El nombre del módulo a utilizar
+    apt: name=apache2 state=present
+  # Nombre de la tarea
+  - name: Arrancar apache
+    service: name=apache2 state=started
+  - name: copiar fichero
+    copy: src=/home/vagrant/ud10-playbooks/ansible.html dest=/var/www/html/ owner=www-data group=www-data
+  #comando echo
+  - name: comando echo
+    command: echo {{message}}
+
+    notify:
+        - copia fichero
+  handlers: 
+    - name: copia fichero
+      copy: src=/home/vagrant/ud10-playbooks/ansible.html dest=/var/www/html/ owner=www-data group=www-data
+
+
+...
